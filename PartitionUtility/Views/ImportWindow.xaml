@@ -1,0 +1,108 @@
+﻿<dx:ThemedWindow x:Class="PartitionUtility.ImportWindow" x:Name="Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PartitionUtility"
+        mc:Ignorable="d"
+        Title="{StaticResource ImportWindowTitle}"  WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Icon="\Icon.ico" Style="{DynamicResource MetropolisDarkThemedWindowDefaultStyle}">
+
+    <x:Code>
+        <![CDATA[ public ImportWindow() { InitializeComponent(); }]]>
+    </x:Code>
+
+    <Window.DataContext>
+        <local:ImportWindowVM/>
+    </Window.DataContext>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Delete" Command="{Binding DeleteButtonCommand}"/>
+    </Window.InputBindings>
+
+    <StackPanel>
+
+        <Label Content="Сохраненные конфигурации в базе данных" Margin="10, 10, 0, 0" Foreground="#FFFF8800" DockPanel.Dock="Top"/>
+
+        <DockPanel Width="490" Height="330">
+
+            <dxg:GridControl MaxHeight="330" ItemsSource="{Binding Configs}" CurrentItem="{Binding SelectedConfig}" Margin="10, 0, 10, 0" DockPanel.Dock="Top">
+
+                <dxg:GridColumn Header="ID" FieldName="ID" Width="20" AllowEditing="False">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings HorizontalContentAlignment="Left" />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="Имя конфигурации" FieldName="Name" Width="60" AllowEditing="False">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings HorizontalContentAlignment="Left" />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="Время" FieldName="Time" Width="60" AllowEditing="False">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings HorizontalContentAlignment="Left" />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+
+                <dxg:GridControl.View>
+
+                    <dxg:TableView NavigationStyle="Cell" AllowEditing="False" AutoWidth="True" ShowGroupPanel="False" IsColumnMenuEnabled="False">
+
+                        <dxg:TableView.RowStyle>
+                            <Style TargetType="dxg:RowControl">
+                                <Setter Property="MaxHeight" Value="35" />
+                            </Style>
+                        </dxg:TableView.RowStyle>
+
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="RowDoubleClick">
+                                <b:InvokeCommandAction Command="{Binding ImportButtonCommand}" CommandParameter="{Binding ElementName=Window}"/>
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+
+                    </dxg:TableView>
+
+                </dxg:GridControl.View>
+
+                <dxg:GridControl.SortInfo>
+                    <dxg:GridSortInfo FieldName="Time" SortOrder="Descending" />
+                </dxg:GridControl.SortInfo>
+
+            </dxg:GridControl>
+
+        </DockPanel>
+
+        <DockPanel>
+
+            <dx:SimpleButton Content="Импортировать" Command="{Binding ImportButtonCommand}" CommandParameter="{Binding ElementName=Window}" Glyph="{dx:DXImage Image=Download_16x16.png}" Width="140" HorizontalAlignment="Left" Margin="30, 10, 0, 10">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Click">
+                        <b:InvokeCommandAction Command="{Binding ButtonClickCommand}" PassEventArgsToCommand="True"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </dx:SimpleButton>
+            
+            <dx:SimpleButton Content="Удалить" Command="{Binding DeleteButtonCommand}" Glyph="{dx:DXImage Image=Trash_16x16.png}" Width="140" HorizontalAlignment="Right" Margin="5, 10, 0, 10">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Click">
+                        <b:InvokeCommandAction Command="{Binding ButtonClickCommand}" PassEventArgsToCommand="True"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </dx:SimpleButton>
+            
+            <dx:SimpleButton Content="Отменить" IsCancel="True" Glyph="{dx:DXImage Image=Cancel_16x16.png}" Width="140" HorizontalAlignment="Right" Margin="5, 10, 30, 10">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Click">
+                        <b:InvokeCommandAction Command="{Binding ButtonClickCommand}" PassEventArgsToCommand="True"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </dx:SimpleButton>
+
+        </DockPanel>
+
+    </StackPanel>
+    
+</dx:ThemedWindow>

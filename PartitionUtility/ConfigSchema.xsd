@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<xsd:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:element name="Config">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="UserName" type="xs:string" />
+        <xs:element name="Password" type="xs:string" />
+        <xs:element name="IP" type="xs:string" />
+        <xs:element name="Port" type="xs:unsignedShort" />
+        <xs:element name="DataBase" type="xs:string" />
+        <xs:element name="PartitionLog" type="xs:string" />
+        <xs:element name="PartitionConfig" type="xs:string" />
+        <xs:element name="DumpExePath" type="xs:string" />
+        <xs:element name="Tables">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="SettingsTable">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Name" type="xs:string" />
+                    <xs:element name="AvgEntrySize" type="xs:int" />
+                    <xs:element name="EntrySize" type="xs:int" />
+                    <xs:element name="DateTimeColumns" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="string" type="xs:string" maxOccurs="unbounded" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SelectedDateTimeColumn" type="xs:string" minOccurs="0" />
+                    <xs:element name="PartitionDisabled" type="xs:boolean" />
+                    <xs:element name="DontPartition" type="xs:boolean" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PartitionTables">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="PartitionTable">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="IntervalMeasureSelectedItem" type="xs:int" />
+                    <xs:element name="SectorSizeMeasureSelectedItem" type="xs:int" />
+                    <xs:element name="DepthMeasureSelectedItem" type="xs:int" />
+                    <xs:element name="PartitionIntervalVal" type="xs:int" />
+                    <xs:element name="PartitionIntervalMeasureSelectedItem" type="xs:int" />
+                    <xs:element name="Name" type="xs:string" />
+                    <xs:element name="DateTimeColumn" type="xs:string" />
+                    <xs:element name="EntrySize" type="xs:int" />
+                    <xs:element name="IntervalVal" type="xs:float" />
+                    <xs:element name="SectorSizeVal" type="xs:int" />
+                    <xs:element name="SectorCount" type="xs:int" />
+                    <xs:element name="DepthVal" type="xs:float" />
+                    <xs:element name="EntryCount" type="xs:long" />
+                    <xs:element name="TableSize" type="xs:decimal" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xsd:schema>
